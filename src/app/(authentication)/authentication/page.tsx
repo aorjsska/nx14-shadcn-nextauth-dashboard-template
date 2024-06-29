@@ -1,4 +1,4 @@
-import { UserAuthForm } from "@/components/authentiaction/user-auth-form";
+import { UserAuthForm } from "@/components/app/authentiaction/user-auth-form";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function AuthenticationPage() {
     return (
         <>
-            <div className="container relative hidden h-full flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+            <div className="container relative h-full items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
                 <Link
                     href="/"
                     className={cn(

@@ -1,14 +1,14 @@
 import { dashboardConfig } from "@/config/dashboard";
-import { MainNav } from "../main-nav";
+import { MainNav } from "../../main-nav";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
-import { Icons } from "../icons";
-import { ThemeToggle } from "../theme-toggle";
-import { ThemeCustomizer } from "../theme-customizer";
+import { buttonVariants } from "../../ui/button";
+import { Icons } from "../../icons";
+import { ThemeToggle } from "../../ui-examples/theme-toggle";
+import { ThemeCustomizer } from "../../ui-examples/theme-customizer";
 
 export function Header() {
     return (
-      <header className="bg-background sticky top-0 z-40 w-full border-b">
+      <header className="bg-background sticky top-0 z-40 w-full border-b h-16">
         <div className="flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
           <MainNav items={dashboardConfig.mainNav} />
           <div className="flex flex-1 items-center justify-end space-x-4">
@@ -25,7 +25,6 @@ export function Header() {
                   })}
                 >
                   <Icons.gitHub className="h-5 w-5" />
-                  <span className="sr-only">GitHub</span>
                 </div>
               </Link>
               <Link
@@ -40,11 +39,10 @@ export function Header() {
                   })}
                 >
                   <Icons.twitter className="h-5 w-5 fill-current" />
-                  <span className="sr-only">Twitter</span>
                 </div>
               </Link>
               <ThemeToggle />
-              <ThemeCustomizer/>
+              <ThemeCustomizer disableStyle={true}/>
             </nav>
           </div>
         </div>

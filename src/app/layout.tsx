@@ -3,6 +3,9 @@ import { Metadata } from "next";
 
 import { fontSans } from "../lib/fonts"
 import { cn } from "../lib/utils"
+import { ThemeProvider } from "next-themes";
+import { ThemeWrapper } from "@/components/ui-examples/theme-wrapper";
+import { TailwindIndicator } from "@/components/ui-examples/tailwind-indicator";
 
 
 export const metadata: Metadata = {
@@ -21,11 +24,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <head/>
         <body
           className={cn(
-            "bg-background min-h-screen font-sans antialiased",
+            "bg-background h-full font-sans antialiased",
             fontSans.variable
           )}
         >
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ThemeWrapper className="h-full">
+                {children}
+              <TailwindIndicator />
+            </ThemeWrapper>
+          </ThemeProvider>
         </body>
       </html>
     </>

@@ -1,14 +1,16 @@
 import { Header } from "@/components/app/dashboard/header"
-import { dashboardConfig } from "@/config/dashboard"
+import { TailwindIndicator } from "@/components/ui-examples/tailwind-indicator"
+import { ThemeWrapper } from "@/components/ui-examples/theme-wrapper"
+import { uiConfig } from "@/config/ui"
 import { Metadata, Viewport } from "next"
-
+import { ThemeProvider } from "next-themes"
 
 export const metadata: Metadata = {
     title: {
-      default: dashboardConfig.name,
-      template: `%s - ${dashboardConfig.name}`,
+      default: uiConfig.name,
+      template: `%s - ${uiConfig.name}`,
     },
-    description: dashboardConfig.description,
+    description: uiConfig.description,
     icons: {
       icon: "/favicon.ico",
       shortcut: "/favicon-16x16.png",
@@ -23,17 +25,17 @@ export const viewport: Viewport = {
     ],
 }
   
-interface DashboardLayoutProps {
+interface UILayoutProps {
     children: React.ReactNode
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+export default function UILayout({ children }: UILayoutProps) {
     return (
       <>
         <div className="relative flex h-full flex-col px-4">
-            <Header/>
-            <div className="h-[calc(100%-64px)]">{children}</div>
-        </div>
+              <Header/>
+              <div className="h-[calc(100%-64px)]">{children}</div>
+          </div>
       </>
     )
 }

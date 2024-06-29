@@ -2,7 +2,7 @@
 
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 import { useState } from 'react';
 
 export default function LogoutButton() {

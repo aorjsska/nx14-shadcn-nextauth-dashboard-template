@@ -1,25 +1,25 @@
 "use client"
 
 import { CheckIcon, MoonIcon, Paintbrush, SunIcon } from "lucide-react";
-import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
 import { useConfig } from "@/hooks/use-config";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { InfoCircledIcon, ResetIcon } from "@radix-ui/react-icons";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { themes } from "@/registry/themes";
 
-export function ThemeCustomizer() {
-    const { setTheme: setMode, resolvedTheme: mode } = useTheme()
-    const [config, setConfig] = useConfig()
-    const [mounted, setMounted] = useState(false)
+interface ThemeCustomizerProps {
+    disableStyle?: boolean
+    disableColor?: boolean
+    disableRadius?: boolean
+    disableMode?: boolean
+}
 
-    useEffect(() => {
-        setMounted(true)
-    }, [])
-
+export function ThemeCustomizer({
+    disableStyle = false
+}: ThemeCustomizerProps) {
     return (
         <div className="flex items-center space-x-2">
             <Popover>
@@ -33,14 +33,21 @@ export function ThemeCustomizer() {
                     align="center"
                     className="z-40 w-[340px] rounded-[0.5rem] bg-white p-6 dark:bg-zinc-950"
                 >
-                    <Customizer/>
+                    <Customizer disableStyle={disableStyle}/>
                 </PopoverContent>
             </Popover>
         </div>
     )
 }
 
-function Customizer() {
+interface CustomizerProps extends ThemeCustomizerProps {}
+
+function Customizer({
+    disableStyle=false,
+    disableColor=false,
+    disableRadius=false,
+    disableMode=false
+}) {
     const { setTheme: setMode, resolvedTheme: mode } = useTheme()
     const [config, setConfig] = useConfig()
 
@@ -72,62 +79,64 @@ function Customizer() {
                 </Button>
             </div>
             <div className="flex flex-1 flex-col space-y-4 md:space-y-6">
-                <div className="space-y-1.5">
-                    <div className="flex w-full items-center">
-                        <Label className="text-xs">Style</Label>
-                        <Popover>
-                            <PopoverTrigger>
-                                <InfoCircledIcon className="ml-1 h-3 w-3"/>
-                                <span className="sr-only">About styles</span>
-                            </PopoverTrigger>
-                            <PopoverContent
-                                className="space-y-3 rounded-[0.5rem] text-sm"
-                                side="right"
-                                align="start"
-                                alignOffset={-20}
+                {disableStyle ? undefined : (
+                    <div className="space-y-1.5">
+                        <div className="flex w-full items-center">
+                            <Label className="text-xs">Style</Label>
+                            <Popover>
+                                <PopoverTrigger>
+                                    <InfoCircledIcon className="ml-1 h-3 w-3"/>
+                                    <span className="sr-only">About styles</span>
+                                </PopoverTrigger>
+                                <PopoverContent
+                                    className="space-y-3 rounded-[0.5rem] text-sm"
+                                    side="right"
+                                    align="start"
+                                    alignOffset={-20}
+                                >
+                                    <p className="font-medium">
+                                        What is the difference between the New York and Default style?
+                                    </p>
+                                    <p>
+                                        A style comes with its own set of components, animations, icons and more.
+                                    </p>
+                                    <p>
+                                        The <span className="font-medium">Default</span> style has
+                                        larger inputs, uses lucide-react for icons and
+                                        tailwindcss-animate for animations.
+                                    </p>
+                                    <p>
+                                        The <span className="font-medium">New York</span> style ships
+                                        with smaller buttons and cards with shadows. It uses icons
+                                        from Radix Icons.
+                                    </p>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                            <Button
+                                variant={"outline"}
+                                size={"sm"}
+                                onClick={() => setConfig({...config, style: "default"})}
+                                className={cn(
+                                    config.style === "default" && "border-2 border-primary"
+                                )}
                             >
-                                <p className="font-medium">
-                                    What is the difference between the New York and Default style?
-                                </p>
-                                <p>
-                                    A style comes with its own set of components, animations, icons and more.
-                                </p>
-                                <p>
-                                    The <span className="font-medium">Default</span> style has
-                                    larger inputs, uses lucide-react for icons and
-                                    tailwindcss-animate for animations.
-                                </p>
-                                <p>
-                                    The <span className="font-medium">New York</span> style ships
-                                    with smaller buttons and cards with shadows. It uses icons
-                                    from Radix Icons.
-                                </p>
-                            </PopoverContent>
-                        </Popover>
+                                Default
+                            </Button>
+                            <Button
+                                variant={"outline"}
+                                size={"sm"}
+                                onClick={() => setConfig({...config, style: "new-york"})}
+                                className={cn(
+                                    config.style === "new-york" && "border-2 border-primary"
+                                )}
+                            >
+                                New York
+                            </Button>
+                        </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-2">
-                        <Button
-                            variant={"outline"}
-                            size={"sm"}
-                            onClick={() => setConfig({...config, style: "default"})}
-                            className={cn(
-                                config.style === "default" && "border-2 border-primary"
-                            )}
-                        >
-                            Default
-                        </Button>
-                        <Button
-                            variant={"outline"}
-                            size={"sm"}
-                            onClick={() => setConfig({...config, style: "new-york"})}
-                            className={cn(
-                                config.style === "new-york" && "border-2 border-primary"
-                            )}
-                        >
-                            New York
-                        </Button>
-                    </div>
-                </div>
+                )}
                 <div className="space-y-1.5">
                     <Label className="text-xs">Color</Label>
                     <div className="grid grid-cols-3 gap-2">

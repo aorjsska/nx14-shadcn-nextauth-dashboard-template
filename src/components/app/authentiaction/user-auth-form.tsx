@@ -3,12 +3,12 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
-import { Icons } from "../icons"
+import { Input } from "../../ui/input"
+import { Button } from "../../ui/button"
+import { Icons } from "../../icons"
 import { getCsrfToken, signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { Alert, AlertDescription } from "../ui/alert"
+import { Alert, AlertDescription } from "../../ui/alert"
 import { sanitizeInput } from "@/lib/sanitizer"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
