@@ -43,7 +43,7 @@ export function Header() {
                 </div>
               </Link>
               <ThemeToggle />
-              <ThemeCustomizer disableStyle={true}/>
+              <ThemeCustomizer disableStyle={true} className="border-none"/>
               <LogoutButton/>
             </nav>
           </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { CheckIcon, MoonIcon, Paintbrush, SunIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button, ButtonProps } from "../ui/button";
 import { useTheme } from "next-themes";
 import { useConfig } from "@/hooks/use-config";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -10,7 +10,9 @@ import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { themes } from "@/registry/themes";
 
-interface ThemeCustomizerProps {
+// ThemeCustomizer props 타입을 ButtonProps를 확장하여 정의
+interface ThemeCustomizerProps extends ButtonProps {
+    // 여기에 ThemeCustomizer 특정한 추가 props가 있다면 정의할 수 있습니다.
     disableStyle?: boolean
     disableColor?: boolean
     disableRadius?: boolean
@@ -18,15 +20,20 @@ interface ThemeCustomizerProps {
 }
 
 export function ThemeCustomizer({
-    disableStyle = false
+    disableStyle = false,
+    children,
+    ...props
 }: ThemeCustomizerProps) {
     return (
         <div className="flex items-center space-x-2">
             <Popover>
                 <PopoverTrigger asChild>
-                    <Button variant="outline" className="">
+                    <Button
+                        variant="outline"
+                        {...props}
+                    >
                         <Paintbrush className="mr-2 h-4 w-4" />
-                        Customize
+                        {children}
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent
