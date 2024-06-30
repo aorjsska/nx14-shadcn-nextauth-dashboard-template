@@ -5,6 +5,7 @@ import { buttonVariants } from "../../ui/button";
 import { Icons } from "../../icons";
 import { ThemeToggle } from "../../ui-examples/theme-toggle";
 import { ThemeCustomizer } from "../../ui-examples/theme-customizer";
+import LogoutButton from "../authentiaction/logout-button";
 
 export function Header() {
     return (
@@ -43,6 +44,7 @@ export function Header() {
               </Link>
               <ThemeToggle />
               <ThemeCustomizer disableStyle={true}/>
+              <LogoutButton/>
             </nav>
           </div>
         </div>

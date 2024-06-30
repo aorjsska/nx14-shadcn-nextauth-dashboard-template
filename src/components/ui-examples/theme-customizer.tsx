@@ -47,7 +47,7 @@ function Customizer({
     disableColor=false,
     disableRadius=false,
     disableMode=false
-}) {
+}: CustomizerProps) {
     const { setTheme: setMode, resolvedTheme: mode } = useTheme()
     const [config, setConfig] = useConfig()
 

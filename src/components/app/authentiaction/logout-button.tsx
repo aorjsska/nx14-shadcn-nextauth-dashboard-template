@@ -2,10 +2,15 @@
 
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../../ui/button';
+import { Button, ButtonProps } from '../../ui/button';
 import { useState } from 'react';
 
-export default function LogoutButton() {
+// LogoutButton의 props 타입을 ButtonProps를 확장하여 정의
+interface LogoutButtonProps extends ButtonProps {
+  // 여기에 LogoutButton에만 특정한 추가 props가 있다면 정의할 수 있습니다.
+}
+
+export default function LogoutButton({ children, ...props }: LogoutButtonProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   
@@ -24,7 +29,11 @@ export default function LogoutButton() {
   };
 
   return (
-    <Button onClick={handleLogout} disabled={isLoading}>
+    <Button
+      onClick={handleLogout}
+      disabled={isLoading}
+      {...props}
+    >
       {isLoading ? '로그아웃 중...' : '로그아웃'}
     </Button>
   );
